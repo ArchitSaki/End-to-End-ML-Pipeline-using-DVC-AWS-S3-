@@ -3,18 +3,18 @@ import logging
 import os
 from sklearn.model_selection import train_test_split
 
-log_dir="logs"
-os.makedirs(log_dir,exist_ok=True)
+log_dir = 'logs'
+os.makedirs(log_dir, exist_ok=True)
 
-logger= logging.getLogger('data_ingestion')
-logger.setLevel('Debug')
+logger = logging.getLogger('data_ingestion')
+logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler()
-console_handler.setLevel('Debug')
+console_handler.setLevel(logging.DEBUG)
 
 log_file_path = os.path.join(log_dir, 'data_ingestion.log')
 file_handler = logging.FileHandler(log_file_path)
-file_handler.setLevel('Debug')
+file_handler.setLevel(logging.DEBUG)
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 console_handler.setFormatter(formatter)
@@ -23,7 +23,7 @@ file_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
-def load_params(data_url):
+def load_data(data_url):
     try:
         df=pd.read_csv(data_url)
         logger.debug('data loaded from %s',data_url)

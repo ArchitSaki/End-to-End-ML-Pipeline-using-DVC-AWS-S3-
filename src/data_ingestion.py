@@ -52,8 +52,8 @@ def save_data(train,test,data_path):
     try:
         raw_data_path = os.path.join(data_path,'raw')
         os.makedirs(raw_data_path,exist_ok=True)
-        train_data.to_csv(os.path.join(raw_data_path,"train.csv"),index=False)
-        tesr_data.to_csv(os.path.join(raw_data_path,"test.csv"),index=False)
+        train.to_csv(os.path.join(raw_data_path,"train.csv"),index=False)
+        test.to_csv(os.path.join(raw_data_path,"test.csv"),index=False)
         logger.debug('train and test data saved %s',raw_data_path)
     except Exception as e:
         logger.error('unexpected error %s',e)
@@ -62,10 +62,10 @@ def save_data(train,test,data_path):
 def main():
     try:
         test_size=0.2
-        data_path=''
+        data_path='https://raw.githubusercontent.com/ArchitSaki/End-to-End-ML-Pipeline-using-DVC-AWS-S3-/refs/heads/main/experiments/spam%20(2).csv'
         df=load_data(data_path)
         final_df=preprocess_data(df)
-        train_data,test_data = train_test_split(final_df,test_size,data_path)
+        train_data,test_data = train_test_split(final_df,test_size=test_size, random_state=2)
         save_data(train_data,test_data,data_path="./data")
     except Exception as e:
         logger.error('Failed to complete data ingestion %s',e)
